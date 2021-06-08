@@ -1,4 +1,4 @@
-import { italic, bold, red, green } from "https://deno.land/std@0.97.0/fmt/colors.ts";
+import { italic, bold, red, green, blue } from "https://deno.land/std@0.97.0/fmt/colors.ts";
 
 interface Task {
     name: string;
@@ -68,9 +68,11 @@ async function handler(response: number) {
 const showTask = () =>
     Object.keys(tasks).forEach((taskName) => {
         const { name, description, state } = tasks[taskName];
-        console.log(`\n< ${green(name)} [${red(state)}] >`);
+        console.log(`\n< ${green(name)} [${colorStateTask(state)}] >`);
         console.log(italic(description), "\n");
     });
+
+const colorStateTask = (state: TaskState) => (state === "completed" ? blue(state) : red(state));
 
 const remove = (name: string) => delete tasks[name];
 
